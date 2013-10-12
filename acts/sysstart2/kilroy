@@ -1,0 +1,30 @@
+#!/bin/bash
+
+#who -r to get runlevel
+#logger to write to syslog
+
+# this is first dirty oneliner
+#logger -s "Kilroy was here at `date +%F%T%R`, `who -r`"
+
+#now for correct? msg of "Kilroy was here at YYYY-MM-DD hh:mm, runlevel x"
+
+dtime=$(date +%F%R)    # I'll process this to get date and time values for msg
+date=$(date +%F)       # this here to provide a usable value in case dtime fail
+time=$(date +%R)       # this here to provide a usable value in case dtime fail
+rlvl=$(who -r)         # again another default, processed later on
+
+REGEX1="^([0-9\-]{10})([0-9\:]{5})$"
+REGEX2=".*run\-level[[:blank:]]+([[:digit:]]).*"
+
+if [[ $dtime =~ $REGEX1 ]]  # now process for data..defaults in case regex fail
+then
+  date=${BASH_REMATCH[1]}
+  time=${BASH_REMATCH[2]}
+fi
+
+if [[ $rlvl =~ $REGEX2 ]]
+then
+  rlvl=${BASH_REMATCH[1]}
+fi
+
+logger -s  "Kilroy was here at $date ${time}, runlevel $rlvl"
