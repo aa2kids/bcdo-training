@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# script sigex
+# traps Cntrl C SIGINT
+# takes three taps of Cntrl C to exit out
+# does loop of pings, with output to stdout and a file
+# upon exit it does wc -l on the file and removes file
+# I've got an abnormal termination exit code, along with regular 0 exit code
+
+function my_exit {
+  echo
+  echo
+  echo -n "Number of lines in file are: "
+  wc -l $(basename $0)_${$}
+  rm $(basename $0)_${$}
+  exit $1
+}
+
+caught=0
+
+for ((i=0; i<10; i++))
+do
+	
+  trap '((  caught = caught +1 ))' 2
+
+  if (( caught > 1 ))    #makes no sense to me why this is n -2 
+  then
+    trap break 2
+  fi
+
+  ping -c 15 localhost | tee -a $(basename $0)_${$}
+done
+
+if (( caught > 2 ))      #makes complete sense to me why this is n-1
+then
+  my_exit 53
+else
+  my_exit 0
+fi
+
