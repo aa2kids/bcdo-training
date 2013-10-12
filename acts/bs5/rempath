@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#script rempath
+#arguments given in form of unix paths, separated by space
+#outputs the basename of path, with special case of only
+# / being a blank
+
+
+for path in "$@"
+do
+  trail=`basename $path`
+  if [ $trail = "/" ]
+  then
+    echo ""
+  else
+    echo $trail
+  fi
+done
+

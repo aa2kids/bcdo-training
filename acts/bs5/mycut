@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#script mycut
+#takes two args to feed into cut
+#1st is start
+#2nd is end
+#reads input from stdin and prints letters
+#from columns start to end
+#need to increase by 1, since cut is 1 based
+#and exercise is 0 based for positions
+#arguments then fed to cut -c
+
+start=$((${1}+1))
+end=$((${2}+1))
+
+
+while read -a myarg
+do
+  echo ${myarg[@]} | cut -c ${start}-${end}
+done 

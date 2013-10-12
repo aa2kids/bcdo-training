@@ -1,0 +1,12 @@
+#!/bin/bash
+
+#script lwcount takes no arguments
+#reads word input from stdin and stores them in array
+#outputs the length of arrays
+
+
+while read -a words
+do
+  echo ${#words[@]}
+done
+

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#script remext
+#given arguments in form of unix paths, separated by space
+#outputs the path with file extensions removed
+
+
+for path in "$@"
+do
+  lead=`dirname $path`                   #old
+#  lead=$(dirname $path)                  #new
+  trail=`basename $path | cut -d '.' -f 1`   #old
+#  trail=$(basename $path | cut -d '.' -f 1)  #new
+  if [ $trail = "/" ]
+  then
+    trail=""
+  fi
+  if [ $lead = "." ]
+  then
+    echo ${trail}
+  else
+    echo "${lead}/${trail}"
+  fi
+done
+

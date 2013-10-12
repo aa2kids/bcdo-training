@@ -1,0 +1,9 @@
+#!/bin/bash
+# script cman takes one argument that will be passed to the man command
+# the output from man is passed to col -b to remove backspace and underline chars
+#
+function cleanman {
+  man $1 | col -b
+}
+
+cleanman $1

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+#script argsel takes indef num args
+#first argument is number n
+#rest argument are words
+#1st word is postion 1, returns word at n position or empty string if out bounds
+#num=`expr $# - 1`   # old way of doing int math
+num=$(($#-1))        # new way of doing int math
+if [ $1 -gt $num ]
+then
+#  echo "num too large"
+  echo ""
+else
+  shift $1
+  echo $1
+fi

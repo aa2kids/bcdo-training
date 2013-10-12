@@ -1,0 +1,18 @@
+#!/bin/bash
+# script myvers is run with no arguments
+# it will print out the version of bash used
+# then check the major version number. if < 3, send msg to stderr and
+# exit with status code of 1
+#
+#version of bash is stored in variable $version
+version=`bash --version | grep "version" | cut -f 4 -d " " | cut -d "(" -f 1`
+echo "Bash version is $version"
+
+#first number of version is stored in $maj_rev and error message produced if $maj_rev < 3
+maj_rev=`bash --version | grep "version" | cut -f 4 -d " " |cut -d "(" -f 1 | cut -f 1 -d .`
+#echo $maj_rev
+if [ $maj_rev -lt 3 ]
+then
+  echo "Bad version" >&2
+  exit 1
+fi

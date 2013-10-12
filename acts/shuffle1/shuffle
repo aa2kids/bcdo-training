@@ -1,0 +1,38 @@
+#!/bin/bash
+
+#takes argument list and shuffles/rearranges the members
+#cuts argument list in half, 
+#both halves are equal in number if even # args given,
+#otherwise second half greater than first by 1, if odd # args
+# last element of arg list returned first
+# followed by alternate sequence of successive elements
+# from first and second halves.
+# eg.  arg list of ->   a b c d e
+# would return ->     e a c b d
+
+if (( $# > 0 ))
+then
+  mid=$((${#}/2))
+  midmin1=$((${mid}-1))
+  last=$#
+  echo ${!last}
+
+  for ((i=1; i<=${midmin1}; i++))
+  do
+    echo "${!i}    # first piece"
+    j=$((${mid}+${i}))
+    echo "${!j}"
+  done 
+  if (( $mid > 0 ))
+  then
+    echo "${!mid}    # first piece"
+  fi
+  if (( ${#}%2 > 0 && ${#} > 1 ))
+  then
+    prelast=$((${last}-1))
+    echo "${!prelast}"
+  fi
+else
+  echo "No arguments given"
+fi
+

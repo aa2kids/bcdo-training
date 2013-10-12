@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#script tincr
+#given arguments, checks if it ends in a number.
+#if so, then it increments by 1,
+#if not, then it appends a 1.
+
+
+myre='^(.*[^0-9])([0-9]+)$'
+for entry in "${@}"
+do
+  if [[ $entry =~ ${myre} ]]
+  then
+    echo -n "${BASH_REMATCH[1]}"
+    echo "$((${BASH_REMATCH[2]}+1))"
+  elif [[ $entry =~ ^[0-9]+$ ]]
+  then
+    echo "$((${BASH_REMATCH[0]}+1))"
+  else
+    echo ${entry}1
+  fi
+done

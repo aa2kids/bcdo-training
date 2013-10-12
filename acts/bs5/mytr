@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#script mytr
+#takes two single char args to feed into tr
+#1st is "change from" 2nd is "change to"
+#works the tr magic on input from stdin
+
+while read -a myarg
+do
+  echo ${myarg[@]} | tr $1 $2
+done 

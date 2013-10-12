@@ -1,0 +1,15 @@
+#!/bin/bash
+# script myerror takes any number arguments
+# shows manipulation of postional parameters
+# outputs to stderr the name of program
+# called (in this case - myerror) followed
+# by semicolon, followed by rest of arguments
+# enclosed in square brackets
+
+function error {
+  echo -n "${1}: " >&2
+  shift 1
+  echo "[ ${*} ]" >&2
+}
+
+error `basename ${0}` ${*}

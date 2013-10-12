@@ -1,0 +1,11 @@
+#!/bin/bash
+
+#example usage is -> (echo foo.log; echo genius/spew.log) | fixlog
+#reads from stdin
+while read fname
+do
+#echo mv $fname ${fname/.log/.LOG/}
+#as written above in book, the output has trailing "/"
+#so bottom line has it removed to produce the expected output
+echo mv $fname ${fname/.log/.LOG}
+done
