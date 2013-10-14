@@ -1,0 +1,37 @@
+#!/bin/bash
+
+#takes argument list and shuffles/rearranges the members
+#cuts argument list in half, 
+#both halves are equal in number if even # args given,
+#otherwise second half greater than first by 1, if odd # args
+# last element of arg list returned first
+# followed by alternate sequence of successive elements
+# from first and second halves.
+# eg.  arg list of ->   a b c d e
+# would return ->     e a c b d
+#
+# now I'm gonna try doing this with slicing of initial array?
+#
+
+if (( $# > 0 ))
+then
+  mid=$((${#}/2))
+
+  front=("${@:1:$mid}")
+  back=("${@:$(($mid+1))}")
+
+  echo ${@:$#}
+
+  for ((i=0; i<${mid}; i++))
+  do
+    echo "${front[$i]}    # first piece"
+    if (( i != ${mid}-1 || ${#}%2 != 0 ))
+    then
+      echo "${back[$i]}"
+    fi
+  done 
+
+else
+  echo "No arguments given"
+fi
+
