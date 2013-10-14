@@ -22,16 +22,19 @@ then
     echo "${!i}    # first piece"
     j=$((${mid}+${i}))
     echo "${!j}"
-  done 
+  done
+   
   if (( $mid > 0 ))
   then
     echo "${!mid}    # first piece"
   fi
+  
   if (( ${#}%2 > 0 && ${#} > 1 ))
   then
     prelast=$((${last}-1))
     echo "${!prelast}"
   fi
+  
 else
   echo "No arguments given"
 fi
