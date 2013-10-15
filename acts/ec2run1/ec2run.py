@@ -22,6 +22,10 @@ class Main(object):
     """Return object from argparse.ArgumentParser.parse_args()
        Returning Dictionary
     """
+    if self._argv == None:
+      fargv = [ ]
+    else:
+      fargv = self._argv[1:]
     
     parser = argparse.ArgumentParser(description='Python wrapper for ec2run')
   
@@ -60,7 +64,7 @@ class Main(object):
       action="store_true")
 
 
-    return parser.parse_args(self._argv[1:]).__dict__ #had to strip out argv0, the name of program
+    return parser.parse_args(fargv).__dict__ #had to strip out argv0, the name of program
 #    return vars(parser.parse_args(self._argv[1:]))
 
 def main(argv=None):

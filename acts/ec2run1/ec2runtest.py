@@ -14,12 +14,12 @@ class E2crunTestCase(unittest.TestCase):
     self.mydict = None
     pass
 
-  '''   Something wrong here with handling of None
+  
   def test_parse_argsNone(self):
-    argv = [ self, None ]
+    argv = None
     myobj = ec2run.Main(argv)
     self.assertDictEqual(myobj.parse_args(), self.mydict)
-  '''
+
   
   def test_parse_argsEmpty(self):
     argv = [ self ]
@@ -27,13 +27,37 @@ class E2crunTestCase(unittest.TestCase):
     self.assertDictEqual(myobj.parse_args(), self.mydict)
 
   
-  def test_parse_argsOptions(self):
-    argv = [ self, '-n', '3', '-v', '-r', 'west' ]
+  def test_parse_argsOptions(self):       # positive test all settable options
+    argv = [ self, '-n', '3', '-v', '--region', 'west', '-z', 'any-available',
+             '--user-data', 'some user data', '-t', 'instance type', '--ami',
+             'image', '-g', 'group1', 'group2', '--key', 'some key' ]
     myobj = ec2run.Main(argv)
     self.mydict['verbose']= True
     self.mydict['region'] = 'west'
     self.mydict['instance_count'] = int(3)
+    self.mydict['user_data'] = 'some user data'
+    self.mydict['instance_type'] = 'instance type'
+    self.mydict['key'] = 'some key'
+    self.mydict['group'] = [ 'group1', 'group2' ]
+    self.mydict['ami'] = 'image'
+    self.mydict['availability_zone'] = 'any-available'
     self.assertDictEqual(myobj.parse_args(), self.mydict)
+    
+# error case -> non-number for -n option
+# but argparse does an exit on error instead of raising Exception
+# so, I ?????
+  '''
+  def test_parse_argsNoNumberInstanceCont(self):
+    argv = [ self, '-n', 'not a number' ]
+    myobj = ec2run.Main(argv)
+    self.assertDictEqual(myobj.parse_args(), self.mydict)
+  '''
+
+# error case -> assign both -d and -f exclusive options
+
+# error case -> when -f option check for file, give it something not a file
+
+# error case -> call an option but don't give it anything
   
 
 if __name__ == '__main__':
