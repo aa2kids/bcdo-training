@@ -13,7 +13,6 @@
 if (( $# > 0 ))
 then
   mid=$((${#}/2))
-  midmin1=$((${mid}-1))
   last=$#
   echo ${!last}
 
