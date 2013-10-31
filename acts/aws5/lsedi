@@ -1,0 +1,7 @@
+#!/bin/bash
+#bash wrapper to ec2-tools cli command of
+#ec2-describe-instances that will output following two fields for
+#running instances
+# the image id and the public ip address
+
+ec2-describe-instances --show-empty-fields | grep 'INSTANCE.*running'| cut -f2,17
